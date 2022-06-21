@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class='container'>
+    <div class='d-flex row justify-content-center align-items-center py-md-5 py3' style='min-height: 10vh;'>
+        <div class='col-12'>
+            {% comment %} <form method="POST" action='.'>
+            <h4> enter an amount and your email address </h4>
+            <hr>
+            {% csrf_token %}
+            {{payment_form | crispy }}
+            <hr>
+             <p>
+            <input class='btn btn-primary' type='submit' value='submit'>
+            {% comment %} <input type='text' placeholder='example@gmail.com'id='email' name='email' class='form-control' /> {% endcomment %}
+            {% comment %} <label for="email" class="">Press enter to Continue</label> {% endcomment %}
+            {% comment %} </p>
+            </form> {% endcomment %} 
+        </div>
+    </div>
+</div>
+{% endblock content %}

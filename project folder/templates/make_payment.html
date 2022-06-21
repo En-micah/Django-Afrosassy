@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='container'>
+    <div class='d-flex row justify-content-center align-items-center py-md-5 py3' style='min-height: 10vh;'>
+        <div class='col-12'>
+            <h5> make payment for: GHS {{ payment.amount }} </h5>
+            <hr>
+            <script src='https://js.paystack.co/v1/inline.js'></script>
+            <button type='submit' onclick=payWithPayStack()>make payment</button> 
+        </div>
+    </div>
+</div>
+
+ <script>
+    function payWithPayStack(){
+      let currency = 'GHS';
+      let plan = '';
+      let ref = "{{ payment.ref }}";
+      let obj =
+      { 
+        key: "{{ paystack_secret_key }}",
+        email: '{{ payment.email}}',
+        amount: '{{ payment.amount_value}}',
+        ref: ref,
+        callback: function(response){window.location.href = "{% url 'paystack:verify-payment' payment.ref %}";}
+      }
+      if (Boolean(currency)){
+        obj.currency = currency.toUpperCase()
+          }
+      if (Boolean(plan)){
+        obj.plan = plan;
+      }
+      var handler = PaystackPop.setup(obj); 
+      handler.openIframe();
+    }
+ </script>
+{% endblock content %}
